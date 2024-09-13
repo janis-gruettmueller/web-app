@@ -30,7 +30,7 @@ This document provides a high-level overview of the architecture for the **MyPro
 - **Structure**:
   - **Servlets**: Handle HTTP requests and responses.
   - **Services**: Contain business logic and interact with the DAO layer.
-  - **DAO Layer**: Manages database interactions.
+  - **Data Access Object (DAO) Layer**: Manages database interactions.
   - **Models**: Represent data structures used in the application.
 
 ### 4.3 Database
