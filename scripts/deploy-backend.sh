@@ -1,5 +1,5 @@
 ######################################################
-# File: backend-build.sh
+# File: deploy-backend.sh
 # Version: 1.0
 # Author: Janis Grüttmüller on 13.09.2024
 # Description: script to build and deploy 
