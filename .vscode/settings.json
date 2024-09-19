@@ -1,8 +1,5 @@
 {
     "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "backend/src/main/webapp/WEB-INF/lib/java-dotenv-5.2.2.jar",
-        "backend/src/main/webapp/WEB-INF/lib/mysql-connector-j-9.0.0.jar",
-        "backend/src/main/webapp/WEB-INF/lib/kotlin-stdlib-2.0.20.jar"
+        "lib/**/*.jar"
     ]
 }

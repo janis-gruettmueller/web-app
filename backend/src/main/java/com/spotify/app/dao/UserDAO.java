@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public interface UserDAO {
+    // Exception handling needs to be adjusted
     void createUser(User user) throws IllegalArgumentException;
     void updateUser(Integer id, Map<String, Object> updates) throws IllegalArgumentException;
     
