@@ -18,7 +18,7 @@ public class User implements Serializable {
         this.passwordHash = passwordHash;
         this.email = email;
         this.isVerified = false; // default value
-        this.isLocked = true; // default value
+        this.isLocked = false; // default value
     }
 
     // constructor for loading full user details from the database  

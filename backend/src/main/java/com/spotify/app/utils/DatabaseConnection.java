@@ -11,12 +11,12 @@ public class DatabaseConnection {
     // private static final String USER = dotenv.get("DB_USER");
     // private static final String PASSWORD = dotenv.get("DB_PASSWORD");
 
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/spotify";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 
     // Method to connect to database
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD);
+    public static Connection getConnection(String db_name) throws SQLException {
+        return DriverManager.getConnection(JDBC_URL + db_name, DB_USER, DB_PASSWORD);
     }
 }

@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public class UserDAOImpl implements UserDAO {
+    private final String db_name = "dev_spotify";
+
     // Create a new user
     @Override
     public void createUser(User user) throws IllegalArgumentException {
@@ -19,7 +21,7 @@ public class UserDAOImpl implements UserDAO {
 
         String sql = "INSERT INTO user (username, email, password_hash) VALUES (?, ?, ?)";
 
-        try (Connection c = DatabaseConnection.getConnection();
+        try (Connection c = DatabaseConnection.getConnection(this.db_name);
             PreparedStatement SQLStatement = c.prepareStatement(sql)) {
             SQLStatement.setString(1, user.getUsername());
             SQLStatement.setString(2, user.getEmail());
@@ -48,7 +50,7 @@ public class UserDAOImpl implements UserDAO {
         sql.setLength(sql.length() - 2);
         sql.append(" WHERE user_id = ?");
 
-        try (Connection c = DatabaseConnection.getConnection();
+        try (Connection c = DatabaseConnection.getConnection(this.db_name);
             PreparedStatement SQLStatement = c.prepareStatement(sql.toString())) {
             int index = 1;
 
@@ -71,7 +73,7 @@ public class UserDAOImpl implements UserDAO {
 
         String sql = "DELETE FROM user WHERE user_id = ?;";
 
-        try (Connection c = DatabaseConnection.getConnection();
+        try (Connection c = DatabaseConnection.getConnection(this.db_name);
             PreparedStatement SQLStatement = c.prepareStatement(sql)) {
             SQLStatement.setInt(1, id);
             SQLStatement.executeUpdate();
@@ -90,7 +92,7 @@ public class UserDAOImpl implements UserDAO {
         User user = null;
         String sql = "SELECT * FROM user WHERE username = ?;";
 
-        try (Connection c = DatabaseConnection.getConnection();
+        try (Connection c = DatabaseConnection.getConnection(this.db_name);
             PreparedStatement SQLStatement = c.prepareStatement(sql)) {
             SQLStatement.setObject(1, username);
 
@@ -122,7 +124,7 @@ public class UserDAOImpl implements UserDAO {
         User user = null;
         String sql = "SELECT * FROM user WHERE email = ?;";
 
-        try (Connection c = DatabaseConnection.getConnection();
+        try (Connection c = DatabaseConnection.getConnection(this.db_name);
             PreparedStatement SQLStatement = c.prepareStatement(sql)) {
             SQLStatement.setObject(1, email);
 
@@ -154,7 +156,7 @@ public class UserDAOImpl implements UserDAO {
         User user = null;
         String sql = "SELECT * FROM user WHERE user_id = ?;";
 
-        try (Connection c = DatabaseConnection.getConnection();
+        try (Connection c = DatabaseConnection.getConnection(this.db_name);
             PreparedStatement SQLStatement = c.prepareStatement(sql)) {
             SQLStatement.setInt(1, id);
 
