@@ -58,13 +58,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerUser(String username, String email, String password) throws IllegalArgumentException, SQLException {
-        if (username == null || username.isEmpty() || !this.isValidUsername(username)) {
+        if (username.isEmpty() || !this.isValidUsername(username)) {
             throw new IllegalArgumentException("invalid username!");
         }
-        if (email == null || email.isEmpty() || !this.isValidEmail(email)) {
+        if (email.isEmpty() || !this.isValidEmail(email)) {
             throw new IllegalArgumentException("invalid email!");
         }
-        if (password == null || password.isEmpty() || !this.isValidPassword(password)) {
+        if (password.isEmpty() || !this.isValidPassword(password)) {
             throw new IllegalArgumentException("invalid password!");
         }
 
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String authenticateUser(String loginIdentifier, String plainTextPassword) throws IllegalArgumentException, SQLException {
-        if (loginIdentifier == null || loginIdentifier.isEmpty() || (!this.isValidUsername(loginIdentifier) && !this.isValidEmail(loginIdentifier))) {
+        if (loginIdentifier.isEmpty() || (!this.isValidUsername(loginIdentifier) && !this.isValidEmail(loginIdentifier))) {
             throw new IllegalArgumentException("invalid login identifier!");
         }     
 
@@ -98,6 +98,6 @@ public class UserServiceImpl implements UserService {
         // Generate session token
         // Session session = new Session(user);
         // return session.generateToken();
-        return "success";
+        return "sessionToken";
     }
 }

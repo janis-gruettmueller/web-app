@@ -14,6 +14,10 @@ WEBAPP_DIR="backend/src/main/webapp"
 WAR_FILE="$BUILD_DIR/$PROJECT_NAME.war"
 TOMCAT_WEBAPPS_DIR="/opt/homebrew/opt/tomcat/libexec/webapps"
 
+# Delete previous build
+echo "Deleting previous build..."
+rm -rf $BUILD_DIR/*
+
 # Create build directory if not exists
 mkdir -p $BUILD_DIR
 
@@ -23,7 +27,7 @@ mkdir -p $BUILD_DIR/WEB-INF/classes
 
 # Compile Java code
 echo "Compiling Java code..."
-javac -d $BUILD_DIR/WEB-INF/classes backend/src/**/*.java
+find backend/src/ -name "*.java" | xargs javac -cp "lib/*" -d $BUILD_DIR/WEB-INF/classes
 
 # Create WAR file
 echo "Packaging WAR file..."
