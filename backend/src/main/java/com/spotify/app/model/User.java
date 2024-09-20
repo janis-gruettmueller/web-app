@@ -31,6 +31,19 @@ public class User implements Serializable {
         this.isLocked = isLocked;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+
+        s.append("['user_id': " + this.id + ", ");
+        s.append("'username': " + this.username + ", ");
+        s.append("'password_hash': " + this.passwordHash + ", ");
+        s.append("'is_verified': " + this.isVerified + ", ");
+        s.append("'is_locked': " + this.isLocked + "]");
+
+        return s.toString();
+    }
+
     // getters
     public Integer getId() { return this.id; }
     public String getUsername() { return this.username; }

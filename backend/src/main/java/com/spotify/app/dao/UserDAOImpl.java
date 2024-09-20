@@ -103,8 +103,8 @@ public class UserDAOImpl implements UserDAO {
                         resultSet.getString("username"), 
                         resultSet.getString("password_hash"), 
                         resultSet.getString("email"),
-                        resultSet.getBoolean("isVerified"),
-                        resultSet.getBoolean("isLocked")
+                        resultSet.getBoolean("is_verified"),
+                        resultSet.getBoolean("is_locked")
                     );
                 }
             }
@@ -135,8 +135,8 @@ public class UserDAOImpl implements UserDAO {
                         resultSet.getString("username"), 
                         resultSet.getString("password_hash"), 
                         resultSet.getString("email"),
-                        resultSet.getBoolean("isVerified"),
-                        resultSet.getBoolean("isLocked")
+                        resultSet.getBoolean("is_verified"),
+                        resultSet.getBoolean("is_locked")
                     );
                 }
             }
@@ -167,8 +167,8 @@ public class UserDAOImpl implements UserDAO {
                         resultSet.getString("username"), 
                         resultSet.getString("password_hash"), 
                         resultSet.getString("email"),
-                        resultSet.getBoolean("isVerified"),
-                        resultSet.getBoolean("isLocked")
+                        resultSet.getBoolean("is_verified"),
+                        resultSet.getBoolean("is_locked")
                     );
                 }
             }

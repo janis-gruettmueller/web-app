@@ -12,10 +12,11 @@ PROJECT_NAME="spotify-app"
 BUILD_DIR="build"
 WEBAPP_DIR="backend/src/main/webapp"
 WAR_FILE="$BUILD_DIR/$PROJECT_NAME.war"
-TOMCAT_WEBAPPS_DIR="/opt/homebrew/opt/tomcat/libexec/webapps"
+TOMCAT_WEBAPPS_DIR="/opt/homebrew/opt/tomcat@9/libexec/webapps"
 
 # Delete previous build
 echo "Deleting previous build..."
+brew services stop tomcat@9
 rm -rf $BUILD_DIR/*
 rm -rf $TOMCAT_WEBAPPS_DIR/$PROJECT_NAME
 rm $TOMCAT_WEBAPPS_DIR/$PROJECT_NAME.war
@@ -29,7 +30,7 @@ mkdir -p $BUILD_DIR/WEB-INF/classes
 
 # Compile Java code
 echo "Compiling Java code..."
-find backend/src/ -name "*.java" | xargs javac -cp "lib/*" -d $BUILD_DIR/WEB-INF/classes
+find backend/src/main -name "*.java" | xargs javac -cp "lib/*" -d $BUILD_DIR/WEB-INF/classes
 
 # Create WAR file
 echo "Packaging WAR file..."
@@ -43,7 +44,8 @@ cp $WAR_FILE $TOMCAT_WEBAPPS_DIR
 
 # Restart Tomcat
 echo "Restarting Tomcat..."
-/opt/homebrew/opt/tomcat/libexec/bin/shutdown.sh
-/opt/homebrew/opt/tomcat/libexec/bin/startup.sh
+# /opt/homebrew/opt/tomcat@9/libexec/bin/shutdown.sh
+# /opt/homebrew/opt/tomcat@9/libexec/bin/startup.sh
+brew services start tomcat@9
 
 echo "Deployment complete."
