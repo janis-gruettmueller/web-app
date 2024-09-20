@@ -17,6 +17,8 @@ TOMCAT_WEBAPPS_DIR="/opt/homebrew/opt/tomcat/libexec/webapps"
 # Delete previous build
 echo "Deleting previous build..."
 rm -rf $BUILD_DIR/*
+rm -rf $TOMCAT_WEBAPPS_DIR/$PROJECT_NAME
+rm $TOMCAT_WEBAPPS_DIR/$PROJECT_NAME.war
 
 # Create build directory if not exists
 mkdir -p $BUILD_DIR

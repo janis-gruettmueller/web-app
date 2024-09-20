@@ -3,15 +3,17 @@ package main.java.com.spotify.app.api;
 import main.java.com.spotify.app.service.UserService;
 import main.java.com.spotify.app.service.UserServiceImpl;
 
+// Tomcat 10.*.*
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/api/users")
+@WebServlet(name = "userServlet", value = "/api/user")
 public class UserServlet extends HttpServlet {
 
     private UserService userService;
