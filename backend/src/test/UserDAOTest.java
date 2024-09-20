@@ -63,9 +63,10 @@ public class UserDAOTest {
         UserService userService = new UserServiceImpl();
 
         //userService.registerUser("testUser1", "testUser1@mail.com", "TestP@ssw0rd");
-        
-        System.out.println("user registration: " + testRegisterUser(userService));
-        System.out.println("user authentification: " + testAuthenticateUser(userService));
-        System.out.println("user details: " + testGetUser(userService));
+        userService.registerUser("testUser2", "testUser2@mail.com", "TestP@ssw0rd");
+
+        //System.out.println("user registration: " + testRegisterUser(userService));
+        //System.out.println("user authentification: " + testAuthenticateUser(userService));
+        //System.out.println("user details: " + testGetUser(userService));
     }
 }

@@ -109,7 +109,7 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new SQLException("Error: Executing query for database access", e);
+            throw new SQLException(e);
         }
 
         return user;
@@ -141,7 +141,7 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new SQLException("Error: Executing query for database access", e);
+            throw new SQLException(e);
         }
 
         return user;
@@ -173,7 +173,7 @@ public class UserDAOImpl implements UserDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new SQLException("Error: Executing query for database access", e);
+            throw new SQLException(e);
         }
 
         return user;
