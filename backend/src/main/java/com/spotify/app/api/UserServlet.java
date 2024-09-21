@@ -1,5 +1,6 @@
 package main.java.com.spotify.app.api;
 
+import main.java.com.spotify.app.model.User;
 import main.java.com.spotify.app.service.UserService;
 import main.java.com.spotify.app.service.UserServiceImpl;
 
@@ -32,7 +33,7 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().write("Servlet is working!");
+        
     }
 
     @Override
@@ -41,8 +42,8 @@ public class UserServlet extends HttpServlet {
 
         try {
             switch (action) {
-                case "register":
-                    handleRegister(request, response);
+                case "signUp":
+                    handleSignUp(request, response);
                     break;
                 case "login":
                     handleLogin(request, response);
@@ -56,7 +57,7 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-    private void handleRegister(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+    private void handleSignUp(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -68,7 +69,7 @@ public class UserServlet extends HttpServlet {
 
         userService.registerUser(username, email, password);
         response.setStatus(HttpServletResponse.SC_CREATED);
-        response.getWriter().write("User registered successfully");
+        // response.getWriter().write("User registered successfully");
     }
 
     private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -80,8 +81,23 @@ public class UserServlet extends HttpServlet {
             return;
         }
 
-        String token = userService.authenticateUser(loginIdentifier, password);
+        try {
+            User authenticatedUser = userService.authenticateUser(loginIdentifier, password);
+            
+            if (authenticatedUser == null) {
+                // Invalid login credentials
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid username/email or password");
+                return;
+            }
+
+        } catch (SQLException e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request.");
+        }
+
+        
+
+
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write("Token: " + token);
+        
     }
 }

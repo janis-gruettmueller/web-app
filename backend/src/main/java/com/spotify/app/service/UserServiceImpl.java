@@ -77,27 +77,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String authenticateUser(String loginIdentifier, String plainTextPassword) throws IllegalArgumentException, SQLException {
-        if (loginIdentifier.isEmpty() || (!this.isValidUsername(loginIdentifier) && !this.isValidEmail(loginIdentifier))) {
-            throw new IllegalArgumentException("invalid login identifier!");
+    public User authenticateUser(String loginIdentifier, String plainTextPassword) throws SQLException {
+        if (loginIdentifier == null || loginIdentifier.isEmpty() || 
+        (!this.isValidUsername(loginIdentifier) && !this.isValidEmail(loginIdentifier))) {
+            return null;
         }     
-
         // Fetch the user based on the identifier
         User user = this.getUser(loginIdentifier);
         
         // Check if user exists
         if (user == null) {
-            throw new IllegalArgumentException("User doesn't exist!");
+            return null;
         }
-
         // Validate password
         if (!checkPassword(plainTextPassword, user.getPasswordHash())) {
-            throw new IllegalArgumentException("Invalid password!");
+            return null;
         }
 
-        // Generate session token
-        // Session session = new Session(user);
-        // return session.generateToken();
-        return "sessionToken";
+        return user;
     }
 }

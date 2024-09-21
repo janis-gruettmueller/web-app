@@ -64,9 +64,8 @@ public interface UserService {
      * Authenticates a user with the provided login identifier and password.
      * @param loginIdentifier The username or email for login.
      * @param plainTextPassword The plain text password for authentication.
-     * @return A session token if authentication is successful, or throws an exception if not.
-     * @throws IllegalArgumentException if loginIdentifier is invalid or authentication fails.
+     * @return The User object if authentication is successful, and null if not.
      * @throws SQLException if there is an issue accessing the database.
      */
-    String authenticateUser(String loginIdentifier, String plainTextPassword) throws IllegalArgumentException, SQLException;
+    User authenticateUser(String loginIdentifier, String plainTextPassword) throws SQLException;
 }
