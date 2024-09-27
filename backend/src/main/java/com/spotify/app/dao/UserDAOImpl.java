@@ -16,7 +16,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void createUser(User user) throws IllegalArgumentException {
         if (user == null) {
-            throw new IllegalArgumentException("IllegalArgument: Invalid user object.");
+            throw new IllegalArgumentException("Invalid user object.");
         }
 
         String sql = "INSERT INTO user (username, email, password_hash) VALUES (?, ?, ?)";
@@ -36,10 +36,10 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void updateUser(Integer id, Map<String, Object> updates) throws IllegalArgumentException {
         if (id == null || id <= 0) {
-            throw new IllegalArgumentException("IllegalArgument: Invalid user ID.");
+            throw new IllegalArgumentException("Invalid user ID.");
         }
         if (updates == null || updates.isEmpty()) {
-            throw new IllegalArgumentException("IllegalArgument: No fields to update");
+            throw new IllegalArgumentException("No fields to update");
         }
 
         StringBuilder sql = new StringBuilder("UPDATE user SET ");
@@ -84,9 +84,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserByUsername(String username) throws SQLException, IllegalArgumentException {
+    public User getUserByUsername(String username) throws SQLException {
         if (username == null || username.isEmpty()) {
-            throw new IllegalArgumentException("IllegalArgument: Invalid username");
+            return null;
         }
 
         User user = null;
@@ -104,7 +104,8 @@ public class UserDAOImpl implements UserDAO {
                         resultSet.getString("password_hash"), 
                         resultSet.getString("email"),
                         resultSet.getBoolean("is_verified"),
-                        resultSet.getBoolean("is_locked")
+                        resultSet.getBoolean("is_locked"),
+                        resultSet.getInt("num_failed_attempts")
                     );
                 }
             }
@@ -116,9 +117,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserByEmail(String email) throws SQLException, IllegalArgumentException {
+    public User getUserByEmail(String email) throws SQLException {
         if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("IllegalArgument: Invalid email");
+            return null;
         }
 
         User user = null;
@@ -136,7 +137,8 @@ public class UserDAOImpl implements UserDAO {
                         resultSet.getString("password_hash"), 
                         resultSet.getString("email"),
                         resultSet.getBoolean("is_verified"),
-                        resultSet.getBoolean("is_locked")
+                        resultSet.getBoolean("is_locked"),
+                        resultSet.getInt("num_failed_attempts")
                     );
                 }
             }
@@ -148,9 +150,9 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserById(Integer id) throws SQLException, IllegalArgumentException {
+    public User getUserById(Integer id) throws SQLException {
         if (id == null || id <= 0) {
-            throw new IllegalArgumentException("IllegalArgument: Invalid user ID.");
+            return null;
         }
 
         User user = null;
@@ -168,7 +170,8 @@ public class UserDAOImpl implements UserDAO {
                         resultSet.getString("password_hash"), 
                         resultSet.getString("email"),
                         resultSet.getBoolean("is_verified"),
-                        resultSet.getBoolean("is_locked")
+                        resultSet.getBoolean("is_locked"),
+                        resultSet.getInt("num_failed_attempts")
                     );
                 }
             }

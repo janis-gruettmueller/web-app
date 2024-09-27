@@ -1,6 +1,8 @@
 package main.java.com.spotify.app.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -48,12 +50,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(String loginIdentifier) throws IllegalArgumentException, SQLException {
+    public User getUser(String loginIdentifier) throws SQLException {
+        if (loginIdentifier == null || loginIdentifier.isEmpty()) {
+            return null;
+        }
+
         if (isValidUsername(loginIdentifier)) {
             return userDAO.getUserByUsername(loginIdentifier);
-        } else {
+
+        } else if (isValidEmail(loginIdentifier)) {
             return userDAO.getUserByEmail(loginIdentifier);
         }
+
+        return null;
     }
 
     @Override
@@ -77,23 +86,39 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User authenticateUser(String loginIdentifier, String plainTextPassword) throws SQLException {
-        if (loginIdentifier == null || loginIdentifier.isEmpty() || 
-        (!this.isValidUsername(loginIdentifier) && !this.isValidEmail(loginIdentifier))) {
-            return null;
-        }     
-        // Fetch the user based on the identifier
-        User user = this.getUser(loginIdentifier);
-        
-        // Check if user exists
+    public boolean authenticateUser(User user, String plainTextPassword) throws SQLException {
         if (user == null) {
-            return null;
-        }
-        // Validate password
-        if (!checkPassword(plainTextPassword, user.getPasswordHash())) {
-            return null;
+            return false;
         }
 
-        return user;
+        if (!checkPassword(plainTextPassword, user.getPasswordHash())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void incrementNumFailedAttempts(Integer userId) throws SQLException {
+        Map<String, Object> update = new HashMap<>();
+        update.put("num_failed_attempts", "num_failed_attempts + 1");
+
+        userDAO.updateUser(userId, update);
+    }
+
+    @Override
+    public void resetNumFailedAttempts(Integer userId) throws SQLException {
+        Map<String, Object> update = new HashMap<>();
+        update.put("num_failed_attempts", 0);
+
+        userDAO.updateUser(userId, null);
+    }
+
+    @Override
+    public void lockUser(Integer userId) throws SQLException {
+        Map<String, Object> update = new HashMap<>();
+        update.put("is_locked", true);
+
+        userDAO.updateUser(userId, update);
     }
 }

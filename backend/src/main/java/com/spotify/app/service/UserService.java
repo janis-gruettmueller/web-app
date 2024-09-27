@@ -36,7 +36,7 @@ public interface UserService {
     /**
      * Checks if the provided plain text password matches the hashed password.
      * @param plainTextPassword The plain text password.
-     * @param hashedPassword The hashed password.
+     * @param hashedPassword The password hash of user object.
      * @return True if passwords match, false otherwise.
      */
     boolean checkPassword(String plainTextPassword, String hashedPassword);
@@ -45,10 +45,9 @@ public interface UserService {
      * Fetches a user by username or email.
      * @param loginIdentifier The username or email to search for.
      * @return The User object if found, null otherwise.
-     * @throws IllegalArgumentException if loginIdentifier is invalid.
      * @throws SQLException if there is an issue accessing the database.
      */
-    User getUser(String loginIdentifier) throws IllegalArgumentException, SQLException;
+    User getUser(String loginIdentifier) throws SQLException;
 
     /**
      * Registers a new user with the provided username, email, and password.
@@ -62,10 +61,31 @@ public interface UserService {
 
     /**
      * Authenticates a user with the provided login identifier and password.
-     * @param loginIdentifier The username or email for login.
-     * @param plainTextPassword The plain text password for authentication.
-     * @return The User object if authentication is successful, and null if not.
+     * @param user The user object to authenticate.
+     * @param plainTextPassword The plain text password.
+     * @return True if authentication is successful, and false if not.
      * @throws SQLException if there is an issue accessing the database.
      */
-    User authenticateUser(String loginIdentifier, String plainTextPassword) throws SQLException;
+    boolean authenticateUser(User user, String plainTextPassword) throws SQLException;
+
+    /**
+     * Increment the number of failed attempts by one
+     * @param userId The id of the user object
+     * @throws SQLException if there is an issue accessing the database.
+     */
+    void incrementNumFailedAttempts(Integer userId) throws SQLException;
+
+    /**
+     * Increment the number of failed attempts by one
+     * @param userId The id of the user object
+     * @throws SQLException if there is an issue accessing the database.
+     */
+    void resetNumFailedAttempts(Integer userId) throws SQLException;
+
+    /**
+     * Increment the number of failed attempts by one
+     * @param userId The id of the user object
+     * @throws SQLException if there is an issue accessing the database.
+     */
+    void lockUser(Integer userId) throws SQLException;
 }

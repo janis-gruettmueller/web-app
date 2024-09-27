@@ -11,6 +11,7 @@ public class User implements Serializable {
     private String email;
     private boolean isVerified;
     private boolean isLocked;
+    private int numFailedAttempts;
 
     // constructor for creating a user
     public User(String username, String passwordHash, String email) {
@@ -19,16 +20,18 @@ public class User implements Serializable {
         this.email = email;
         this.isVerified = false; // default value in db
         this.isLocked = false; // default value in db
+        this.numFailedAttempts = 0; // default value in db
     }
 
     // constructor for loading full user details from the database  
-    public User(Integer id, String username, String passwordHash, String email, boolean isVerified, boolean isLocked) {
+    public User(Integer id, String username, String passwordHash, String email, boolean isVerified, boolean isLocked, int numFailedAttempts) {
         this.id = id;
         this.username = username;
         this.passwordHash = passwordHash;
         this.email = email;
         this.isVerified = isVerified;
         this.isLocked = isLocked;
+        this.numFailedAttempts = numFailedAttempts;
     }
 
     @Override
@@ -51,6 +54,7 @@ public class User implements Serializable {
     public String getEmail() { return this.email; }
     public boolean isVerified() { return this.isVerified; }
     public boolean isLocked() { return this.isLocked; }
+    public int getNumFailedAttempts() { return this.numFailedAttempts; }
 
     // setters
     public void setId(Integer id) {

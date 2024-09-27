@@ -32,26 +32,23 @@ public interface UserDAO {
      * Retrieves a user from the database by their username.
      * @param username The username of the user to retrieve.
      * @return The user object if found, or null if not found.
-     * @throws IllegalArgumentException if the username is invalid.
      * @throws SQLException if there is an issue accessing the database.
      */
-    User getUserByUsername(String username) throws IllegalArgumentException, SQLException;
+    User getUserByUsername(String username) throws SQLException;
 
     /**
      * Retrieves a user from the database by their email.
      * @param email The email of the user to retrieve.
      * @return The user object if found, or null if not found.
-     * @throws IllegalArgumentException if the email is invalid.
      * @throws SQLException if there is an issue accessing the database.
      */
-    User getUserByEmail(String email) throws IllegalArgumentException, SQLException;
+    User getUserByEmail(String email) throws SQLException;
 
     /**
      * Retrieves a user from the database by their ID.
      * @param id The ID of the user to retrieve.
      * @return The user object if found, or null if not found.
-     * @throws IllegalArgumentException if the user ID is invalid.
      * @throws SQLException if there is an issue accessing the database.
      */
-    User getUserById(Integer id) throws IllegalArgumentException, SQLException;
+    User getUserById(Integer id) throws SQLException;
 }
